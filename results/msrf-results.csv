@@ -1,2 +1,2 @@
-Model,Epochs,Validation_Dice,Validation_IoU,Validation_Precision,Validation_Recall
-MSRF,125,0.8663,,,
+Model,Epochs,Best Epoch,Validation Loss,Dice,IoU,Precision,Recall,Status
+MSRF,125,125,0.4654,0.8663,0.7664,0.9227,0.8224,Completed
