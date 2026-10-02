@@ -2,58 +2,60 @@
 
 ## Dataset
 
-The project uses the **ISIC 2018 Skin Lesion Segmentation Task** dataset.
+**ISIC 2018 Skin Lesion Segmentation Task 1** is used for binary skin-lesion segmentation.
 
-The dataset consists of dermoscopic skin lesion images and corresponding expert-annotated binary segmentation masks.
-
-## Input Representation
-
-All input images are resized to:
-
-**256 × 256 × 3**
-
-The segmentation target is:
-
-**256 × 256 × 1**
-
-representing the binary lesion mask.
-
----
+- Input: dermoscopic RGB images
+- Target: binary lesion masks
+- Resolution: 256 × 256
+- Split: 80% training / 20% validation
+- Random seed: 42
 
 ## Preprocessing Pipeline
 
-The preprocessing pipeline consists of the following stages.
+```text
+ISIC Image
+    ↓
+Resize to 256 × 256
+    ↓
+CLAHE Contrast Enhancement
+    ↓
+Black-Hat Morphological Processing
+    ↓
+Normalization
+    ↓
+Model Input
+```
 
-### 1. Image Resizing
+For the MSRF-inspired model, an additional edge map is generated:
 
-All dermoscopic images are resized to **256 × 256 pixels** to provide a consistent input resolution.
+```text
+Preprocessed Image
+    ↓
+Edge Extraction
+    ↓
+Edge Map
+    ↓
+MSRF Auxiliary Input
+```
 
-### 2. CLAHE Enhancement
+## Mask Processing
 
-**Contrast Limited Adaptive Histogram Equalization (CLAHE)** is applied to improve local contrast and enhance lesion-related visual structures.
+Ground-truth masks are resized to 256 × 256 and converted to binary masks:
 
-### 3. Black-Hat Enhancement
+- `0` → Background
+- `1` → Lesion
 
-**Black-hat morphological processing** is used as part of the image enhancement procedure to emphasize relevant dark structures and improve visual representation.
+Model predictions are converted to binary masks using a threshold of `0.5`.
 
-### 4. Normalization
+## Model Inputs
 
-Pixel intensities are converted to floating-point representation and normalized to the range:
+| Model | Input |
+|---|---|
+| MSRF-inspired CNN | RGB image + edge map |
+| U-Net | RGB image |
+| DeepLabV3+ | RGB image |
+| SegFormer-B0-style | RGB image |
 
-**[0, 1]**
+## Summary
 
-### 5. Mask Processing
-
-Ground-truth segmentation masks are resized using **nearest-neighbor interpolation** and converted into binary masks.
-
-### 6. Dataset Partition
-
-The available training data is partitioned into **training and validation subsets** using a fixed random seed to maintain consistency between experiments.
-
----
-
-## Experimental Consistency
-
-The same dataset partition and evaluation metrics are used for the comparative experiments wherever applicable.
-
-This allows model performance to be compared under a consistent experimental setting.
+The same base preprocessing pipeline and validation split are used across the experiments. Quantitative results reported in the repository correspond to the held-out validation set.
