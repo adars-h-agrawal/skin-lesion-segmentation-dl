@@ -1,0 +1,2 @@
+Model,Epochs,Best Epoch,Validation Loss,Dice,IoU,Precision,Recall,Status
+DeepLabV3+,20,20,0.3207,0.8724,0.7867,0.9046,0.8672,Completed
