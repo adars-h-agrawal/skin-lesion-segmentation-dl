@@ -2,73 +2,51 @@
 
 ## 1. MSRF-Inspired CNN
 
-The primary segmentation model follows a multi-scale convolutional encoder-decoder design.
-
-The architecture incorporates:
+The primary architecture is a multi-scale encoder-decoder CNN inspired by MSRF-Net.
 
 - Convolutional feature extraction
-- Encoder-decoder processing
-- Multi-scale feature representation
-- Squeeze-and-Excitation based feature recalibration
-- Skip-based feature fusion
-- Pixel-wise sigmoid segmentation output
-
-The model produces a binary segmentation mask corresponding to the lesion region.
-
----
+- Multi-scale feature processing
+- SE-based feature recalibration
+- Encoder-decoder structure
+- Skip connections
+- Edge-map auxiliary input
+- Sigmoid segmentation output
 
 ## 2. U-Net
 
-U-Net follows the classical encoder-decoder segmentation structure.
+U-Net is used as the conventional CNN baseline.
 
-### Encoder
-
-The encoder progressively extracts higher-level features while reducing spatial resolution.
-
-### Decoder
-
-The decoder progressively restores spatial resolution.
-
-### Skip Connections
-
-Features from corresponding encoder stages are concatenated with decoder features to preserve spatial information and improve boundary localization.
-
-### Output
-
-A 1 × 1 convolution followed by sigmoid activation produces the binary segmentation mask.
-
----
+- Encoder-decoder architecture
+- Progressive downsampling and upsampling
+- Skip connections between encoder and decoder
+- Batch normalization and ReLU activations
+- Sigmoid output for binary segmentation
 
 ## 3. DeepLabV3+
 
-DeepLabV3+ uses convolutional feature extraction together with atrous convolution to capture contextual information at multiple spatial scales.
+DeepLabV3+ provides a CNN architecture with multi-scale contextual feature extraction.
 
-The architecture combines:
+- MobileNetV2 encoder
+- Atrous Spatial Pyramid Pooling (ASPP)
+- Low-level feature fusion
+- Decoder-based refinement
+- Sigmoid binary segmentation output
 
-- Atrous convolution
-- Multi-scale contextual representation
-- Encoder-decoder refinement
-- High-resolution boundary recovery
+## 4. SegFormer-B0-Style Model
 
-It provides a CNN-based comparison against the MSRF-inspired model and U-Net.
+A lightweight Transformer-based segmentation model is included to provide an attention-based comparison.
 
----
-
-## 4. SegFormer-B0
-
-SegFormer-B0 introduces a Transformer-based architecture into the comparison.
-
-The model uses attention-based feature representation and a lightweight segmentation decoder.
-
-This provides an architectural contrast to the convolution-based models.
-
----
+- Patch/feature embedding
+- Transformer-style attention blocks
+- Hierarchical feature processing
+- Lightweight decoder
+- Sigmoid binary segmentation output
 
 ## Architecture Comparison
 
-| Model | Architecture Family | Main Characteristic |
+| Model | Architecture Family | Main Feature |
 |---|---|---|
-| MSRF-inspired CNN | CNN | Multi-scale feature extraction |
-| U-Net | CNN | Encoder-decoder with skip connections |
+| MSRF-inspired CNN | CNN | Multi-scale + edge-guided features |
+| U-Net | CNN | Encoder-decoder + skip connections |
 | DeepLabV3+ | CNN | Atrous multi-scale context |
-| SegFormer-B0 | Transformer | Attention-based representation |
+| SegFormer-B0-style | Transformer | Attention-based feature modelling |
