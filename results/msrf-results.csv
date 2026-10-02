@@ -1,0 +1,2 @@
+Model,Epochs,Validation_Dice,Validation_IoU,Validation_Precision,Validation_Recall
+MSRF,125,0.8663,,,
