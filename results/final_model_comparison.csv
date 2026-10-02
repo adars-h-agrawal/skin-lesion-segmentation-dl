@@ -1,5 +1,5 @@
-Model,Epochs,Best_Epoch,Validation_Dice,Validation_IoU,Validation_Precision,Validation_Recall
-MSRF-Net,125,125,0.8663,0.7664,0.9227,0.8224
-U-Net,20,20,0.805,0.7025,0.8472,0.8303
+Model,Epochs,Best Epoch,Validation Dice,Validation IoU,Validation Precision,Validation Recall
+MSRF-Net,125,Not recorded,0.8663,0.7664,0.9227,0.8224
+U-Net,20,20,0.8050,0.7025,0.8472,0.8303
 DeepLabV3+,20,20,0.8724,0.7867,0.9046,0.8672
 SegFormer-B0,20,20,0.7836,0.6997,0.9481,0.7467
