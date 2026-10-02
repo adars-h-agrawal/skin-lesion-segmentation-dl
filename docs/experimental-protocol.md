@@ -1,58 +1,33 @@
 # Experimental Protocol
 
-## Objective
+## Experimental Setup
 
-The experiments are designed to compare multiple segmentation architectures under a common evaluation protocol.
+All models are evaluated using the same dataset, preprocessing pipeline, validation split, random seed, and segmentation metrics.
 
-## Input
+- Dataset: ISIC 2018 Skin Lesion Segmentation Task 1
+- Image size: 256 × 256
+- Train/validation split: 80% / 20%
+- Random seed: 42
+- Prediction threshold: 0.5
 
-- Resolution: 256 × 256
-- Channels: 3
-- Task: Binary segmentation
+## Evaluation Metrics
 
-## Training
+- **Dice:** Measures overlap between predicted and ground-truth masks.
+- **IoU:** Measures intersection over union.
+- **Precision:** Measures the proportion of predicted lesion pixels that are correct.
+- **Recall:** Measures the proportion of lesion pixels correctly detected.
 
-The models are trained using the prepared ISIC 2018 training data.
+## Training Configuration
 
-For preliminary comparative experiments, a limited training schedule is used to obtain model performance without extensive hyperparameter optimization.
+| Model | Epochs | Best Epoch | Validation Dice |
+|---|---:|---:|---:|
+| MSRF-inspired CNN | 125 | Not recorded | 0.8663 |
+| U-Net | 20 | 20 | 0.8050 |
+| DeepLabV3+ | 20 | 20 | 0.8724 |
+| SegFormer-B0-style | 20 | 20 | 0.7836 |
 
-## Validation
+The training budgets were not identical; therefore, results are treated as experimental comparisons rather than controlled claims about architecture superiority.
 
-A fixed validation partition is used for model comparison.
+## Final Evaluation
 
-The validation partition is generated using a fixed random seed to improve reproducibility.
-
-## Metrics
-
-The following metrics are recorded:
-
-### Dice Coefficient
-
-Measures overlap between the predicted segmentation and the ground-truth mask.
-
-### Intersection over Union
-
-Measures the ratio between intersection and union of predicted and ground-truth regions.
-
-### Precision
-
-Measures the proportion of predicted lesion pixels that correspond to actual lesion pixels.
-
-### Recall
-
-Measures the proportion of actual lesion pixels correctly identified by the model.
-
-## Qualitative Evaluation
-
-Selected segmentation outputs are visualized using:
-
-- Input image
-- Ground-truth mask
-- Predicted segmentation
-- Prediction overlay
-
-## Comparative Evaluation
-
-The final comparison will place all proposed architectures under the same metric framework.
-
-The results will be summarized in a single comparison table.
+The final comparison uses the held-out validation set and reports Dice, IoU, precision, and recall for all four models. Qualitative segmentation examples and metric comparison figures are also included in the repository.
